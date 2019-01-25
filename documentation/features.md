@@ -1,10 +1,15 @@
 # Features
 
+* Register/login & roles
+* Customers & projects
+* Recording time
+* Role-specific summary reports 
+
 ## User stories
 
 * As an employee...
   - I can record my hours by project and work type.
-  - I can view my recorded hours.
+  - I can view my recorded hours by project and work type.
 
 * As a project manager...
   - I can record my hours by project.
