@@ -1,0 +1,23 @@
+{% extends "layout.html" %} {% block body %}
+<table>
+  <tr>
+    <th>Hours</th>
+    <th>Description</th>
+    <th>Cleared for invoicing</th>
+    <th></th>
+  </tr>
+  {% for timelog in timelogs %}
+  <tr>
+    <td>{{ timelog.hours}}</td>
+    <td>{{ timelog.description }}</td>
+    <td>{{ timelog.cleared }}</td>
+    <td>
+      <form method="POST" action="{{ url_for('timelogs_set_cleared', timelog_id=timelog.id) }}">
+        <input type="submit" value="Clear for invoicing" />
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}
