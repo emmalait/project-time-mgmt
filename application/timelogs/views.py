@@ -1,5 +1,5 @@
 from flask import redirect, render_template, request, url_for
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 from application import app, db
 from application.timelogs.models import TimeLog
@@ -33,6 +33,7 @@ def timelogs_create():
         return render_template("timelogs/new.html", form = form)
 
     t = TimeLog(form.hours.data, form.description.data)
+    t.account_id = current_user.id
     
     db.session().add(t)
     db.session().commit()
