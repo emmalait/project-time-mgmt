@@ -41,4 +41,7 @@ def load_user(user_id):
     return User.query.get(user_id)
 
 # Create db tables if necessary
-db.create_all()
+try:
+    db.create_all()
+except:
+    pass
