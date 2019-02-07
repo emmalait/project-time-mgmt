@@ -2,8 +2,35 @@
   
 {% block body %}
 <form method="POST" action="{{ url_for('timelogs_create') }}">
-  Hours: <input type="number" name="hours"/></br>
-  Description: <input type="text" name="description"/></br>
-  <input type="submit" value="Log time"/>
+    <table>
+        <tr>
+            <td>
+                {{ form.hours.label }}
+            </td>
+            <td>
+                {{ form.hours }}
+            </td>
+        </tr>
+        <tr>
+                <td>
+                    {{ form.description.label }}
+                </td>
+                <td>
+                    {{ form.description }}
+                </td>
+                <td>
+                    <ul>
+                        {% for error in form.description.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Log time"/>
+            </td>
+        </tr>
+    </table>
 </form>
 {% endblock %}

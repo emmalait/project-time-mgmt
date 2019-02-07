@@ -6,15 +6,26 @@
   </head>
 
   <body>
-        <ul>
-      <li><a href="{{ url_for('timelogs_index') }}">List logged time</a></li>
-      <li><a href="{{ url_for('timelogs_form') }}">Log time</a></li>
-        </ul>
-        
-        {% block body %}
-        <p>
-      Content.
-        </p>
-        {% endblock %}
-      </body>
+      {% if current_user.is_authenticated %}
+      <p>
+          Logged in as {{ current_user.name }} | <a href="{{ url_for('auth_logout') }}">Log out</a>
+      </p>
+      {% else %}
+      <a href="{{ url_for('auth_login') }}">Log in</a>
+      {% endif %}
+      
+      <ul>
+        <li><a href="{{ url_for('timelogs_index') }}">List logged time</a></li>
+        <li><a href="{{ url_for('timelogs_form') }}">Log time</a></li>
+      </ul>
+      
+      {% block body %}
+      
+      <p>
+          Content.
+      </p>
+      
+      {% endblock %}
+      
+  </body>
 </html>
