@@ -4,11 +4,16 @@ from flask_login import login_required, current_user
 from application import app, db
 from application.timelogs.models import TimeLog
 from application.timelogs.forms import TimeLogForm
+from application.worktypes.models import WorkType
 
 @app.route("/timelogs", methods=["GET"])
 @login_required
 def timelogs_index():
-    return render_template("timelogs/list.html", timelogs = TimeLog.query.all())
+    logs = TimeLog.query.all()
+
+    for timelog in logs:
+        timelog.work_type_name = WorkType.query.filter_by(id = timelog.work_type_id).first()
+    return render_template("timelogs/list.html", timelogs = logs)
 
 @app.route("/timelogs/new/")
 @login_required
@@ -34,6 +39,7 @@ def timelogs_create():
 
     t = TimeLog(form.hours.data, form.description.data)
     t.account_id = current_user.id
+    t.work_type_id = form.work_type.data.id
     
     db.session().add(t)
     db.session().commit()

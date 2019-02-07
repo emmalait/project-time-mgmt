@@ -1,16 +1,16 @@
 from application import db
+from application.models import Base
 
-class User(db.Model):
+from sqlalchemy.sql import text
+
+class User(Base):
 
     __tablename__ = "account"
 
-    id = db.Column(db.Integer, primary_key=True)
-    date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
-    date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp)
-    
     name = db.Column(db.String(144), nullable=False)
     username = db.Column(db.String(144), nullable=False)
     password = db.Column(db.String(144), nullable=False)
+    manager = db.Column(db.Boolean, nullable=True)
 
     timelogs = db.relationship("TimeLog", backref='account', lazy=True)
 
@@ -18,6 +18,7 @@ class User(db.Model):
         self.name = name
         self.username = username
         self.password = password
+        self.manager = False
 
     def get_id(self):
         return self.id
@@ -30,3 +31,17 @@ class User(db.Model):
     
     def is_authenticated(self):
         return True
+    
+    @staticmethod
+    def find_users_with_no_logs():
+        stmt = text("SELECT Account.id, Account.name FROM Account"
+                    " LEFT JOIN Time_Log ON Time_Log.Account_id = Account.id"
+                    " GROUP BY Account.id"
+                    " HAVING COUNT(Time_Log.id) = 0;")
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"id":row[0], "name":row[1]})
+        
+        return response

@@ -2,6 +2,7 @@
 <table>
   <tr>
     <th>Hours</th>
+    <th>Work type</th>
     <th>Description</th>
     <th>Cleared for invoicing</th>
     <th></th>
@@ -9,6 +10,7 @@
   {% for timelog in timelogs %}
   <tr>
     <td>{{ timelog.hours}}</td>
+    <td>{{ timelog.work_type_name }}</td>
     <td>{{ timelog.description }}</td>
     <td>{{ timelog.cleared }}</td>
     <td>

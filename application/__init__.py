@@ -24,6 +24,9 @@ from application.timelogs import views
 from application.auth import models
 from application.auth import views
 
+from application.worktypes import models
+from application.worktypes import views
+
 # Login
 from application.auth.models import User
 from os import urandom

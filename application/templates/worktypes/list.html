@@ -1,0 +1,15 @@
+{% extends "layout.html" %} {% block body %}
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Price</th>
+  </tr>
+  {% for worktype in worktypes %}
+  <tr>
+    <td>{{ worktype.name}}</td>
+    <td>{{ worktype.price }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}
