@@ -4,7 +4,7 @@ from application.models import Base
 class WorkType(Base):
     
     name = db.Column(db.String(144), nullable=False)
-    price = db.Column(db.Numeric(precision=2, scale=2), nullable=False)
+    price = db.Column(db.Numeric(precision=4, scale=2), nullable=False)
 
     timelogs = db.relationship("TimeLog", backref='work_type', lazy=True)
 
