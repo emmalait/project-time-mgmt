@@ -12,8 +12,7 @@ def work_type_choices():
 class TimeLogForm(FlaskForm):
     hours = IntegerField("Hours")
     work_type = QuerySelectField(u"Work type", query_factory = work_type_choices)
-    description = StringField("Log description", [validators.Length(min=2)])
+    description = StringField("Log description", [validators.Length(min=2, max=144)])
 
     class Meta:
         csrf = False
-

@@ -1,8 +1,41 @@
 {% extends "layout.html" %}
   
 {% block body %}
+
+<h2>Log time</h2>
+
 <form method="POST" action="{{ url_for('timelogs_create') }}">
     <table>
+        <tr>
+            <td>
+                {{ form.work_type.label }}
+            </td>
+            <td>
+                {{ form.work_type }}
+            </td>
+            <td>
+                <ul>
+                {% for error in form.work_type.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ form.description.label }}
+            </td>
+            <td>
+                {{ form.description }}
+            </td>
+            <td>
+                <ul>
+                    {% for error in form.description.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
         <tr>
             <td>
                 {{ form.hours.label }}
@@ -10,30 +43,14 @@
             <td>
                 {{ form.hours }}
             </td>
-        </tr>
-        <tr>
-                <td>
-                    {{ form.work_type.label }}
-                </td>
-                <td>
-                    {{ form.work_type }}
-                </td>
-            </tr>
-        <tr>
-                <td>
-                    {{ form.description.label }}
-                </td>
-                <td>
-                    {{ form.description }}
-                </td>
-                <td>
+            <td>
                     <ul>
-                        {% for error in form.description.errors %}
+                        {% for error in form.hours.errors %}
                         <li>{{ error }}</li>
                         {% endfor %}
                     </ul>
                 </td>
-            </tr>
+        </tr>
         <tr>
             <td colspan="2">
                 <input type="submit" value="Log time"/>

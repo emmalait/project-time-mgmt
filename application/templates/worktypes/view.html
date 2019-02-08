@@ -1,19 +1,17 @@
 {% extends "layout.html" %} {% block body %}
-<h2>Work types</h2>
+<h2>{{ worktype.name }}</h2>
 
 <table>
   <tr>
     <th>Name</th>
     <th>Price (€/h)</th>
   </tr>
-  {% for worktype in worktypes %}
   <tr>
     <td>{{ worktype.name}}</td>
     <td>{{ worktype.price }}</td>
   </tr>
-  {% endfor %}
 </table>
 
-<a href="{{ url_for('worktypes_form') }}">Add a work type</a>
+<a href="{{ url_for('worktypes_index') }}">Work types</a>
 
 {% endblock %}
