@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 
 from application import app, db
 from application.timelogs.models import TimeLog
-from application.timelogs.forms import TimeLogForm
+from application.timelogs.forms import TimeLogForm, TimeLogEditForm
 from application.worktypes.models import WorkType
 
 @app.route("/timelogs", methods=["GET"])
@@ -23,20 +23,25 @@ def timelogs_form():
 @app.route("/timelogs/<timelog_id>/", methods=["GET", "POST"])
 @login_required
 def timelog(timelog_id):
+    t = TimeLog.query.filter_by(id = timelog_id).first()
+
     if request.method == "GET":
-        tl = TimeLog.query.filter_by(id = timelog_id).first()
+        return render_template("timelogs/view.html", form = TimeLogEditForm(obj=t) )
 
-#       t = TimeLog.query.get(timelog_id)
-#       t.cleared = True
-#       db.session().commit()
-  
-        return render_template("timelogs/view.html", timelog = tl)
+    form = TimeLogEditForm(request.form)
 
-    t = TimeLog.query.get(timelog_id)
-    t.cleared = True
+    t = TimeLog.query.filter_by(id = form.id.data).first()
+
+    if not form.validate():
+        return render_template("timelogs/new.html", form = form)
+
+    t.work_type_id = form.work_type.data.id
+    t.description = form.description.data
+    t.hours = form.hours.data
+
     db.session().commit()
   
-    return render_template("timelogs/view.html", timelog = tl)
+    return redirect(url_for("timelogs_index"))
 
 @app.route("/timelogs/", methods=["POST"])
 @login_required
@@ -51,6 +56,16 @@ def timelogs_create():
     t.work_type_id = form.work_type.data.id
     
     db.session().add(t)
+    db.session().commit()
+  
+    return redirect(url_for("timelogs_index"))
+
+@app.route("/timelogs/<timelog_id>/delete", methods=["POST"])
+@login_required
+def timelogs_delete(timelog_id):
+    t = TimeLog.query.filter_by(id = timelog_id).first()
+    
+    db.session().delete(t)
     db.session().commit()
   
     return redirect(url_for("timelogs_index"))

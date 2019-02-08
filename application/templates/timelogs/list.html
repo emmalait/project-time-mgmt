@@ -9,6 +9,7 @@
     <th>Hours</th>
     <th>Cleared for invoicing</th>
     <th></th>
+    <th></th>
   </tr>
   {% for timelog in timelogs %}
   <tr>
@@ -17,12 +18,15 @@
     <td>{{ timelog.hours}}</td>    
     <td>{{ timelog.cleared }}</td>
     <td>
-        {% if current_user.manager %}
-            <form method="POST" action="{{ url_for('timelogs_set_cleared', timelog_id=timelog.id) }}">
-                <input type="submit" value="Clear for invoicing" />
-            </form>
-        {% endif %}
+        <form method="GET" action="{{ url_for('timelog', timelog_id=timelog.id) }}">
+            <input type="submit" value="Edit" />
+        </form>
     </td>
+    <td>
+            <form method="POST" action="{{ url_for('timelogs_delete', timelog_id=timelog.id) }}">
+                <input type="submit" value="Delete" />
+            </form>
+        </td>
   </tr>
   {% endfor %}
 </table>
