@@ -10,9 +10,17 @@ from application.worktypes.models import WorkType
 @login_required
 def timelogs_index():
     logs = TimeLog.query.filter_by(account_id = current_user.id).all()
-    
+    worktypes = TimeLog.find_worktypes_in_users_logs()
+
     for timelog in logs:
         timelog.work_type_name = WorkType.query.filter_by(id = timelog.work_type_id).first()
+
+    data = {}
+
+    for type in worktypes:
+        data['d' + str(type)] = TimeLog.find_users_logs_by_worktype(type)
+    
+    #return render_template("timelogs/list.html", timelogs = logs, typecount = len(worktypes), **data)
     return render_template("timelogs/list.html", timelogs = logs)
 
 @app.route("/timelogs/new/")

@@ -1,8 +1,18 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <p>
-    Hello {{ current_user.name }}!
-  </p>
+  
+
+    {% if current_user.is_authenticated %}
+        <p>Hello {{ current_user.name }}!</p>
+
+        <p>Start logging!</p>
+
+    {% else %}
+        <p>
+            Start by <a href="{{ url_for('auth_login') }}">logging in</a> or <a href="{{ url_for('auth_register') }}">registering.</a>
+        </p>
+        
+    {% endif %}
 
 {% endblock %}
