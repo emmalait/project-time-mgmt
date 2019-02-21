@@ -6,29 +6,44 @@ from application.timelogs.models import TimeLog
 from application.timelogs.forms import TimeLogForm, TimeLogEditForm
 from application.worktypes.models import WorkType
 
+# Show all time logs by the logged in user
 @app.route("/timelogs", methods=["GET"])
 @login_required
 def timelogs_index():
     logs = TimeLog.query.filter_by(account_id = current_user.id).all()
-    worktypes = TimeLog.find_worktypes_in_users_logs()
 
     for timelog in logs:
         timelog.work_type_name = WorkType.query.filter_by(id = timelog.work_type_id).first()
 
-    data = {}
-
-    for type in worktypes:
-        data['d' + str(type)] = TimeLog.find_users_logs_by_worktype(type)
-    
-    #return render_template("timelogs/list.html", timelogs = logs, typecount = len(worktypes), **data)
     return render_template("timelogs/list.html", timelogs = logs)
 
-@app.route("/timelogs/new/")
+# Create a new time log for the logged in user
+@app.route("/timelogs", methods=["POST"])
+@login_required
+def timelogs_create():
+    form = TimeLogForm(request.form)
+
+    if not form.validate():
+        return render_template("timelogs/new.html", form = form)
+
+    t = TimeLog(form.hours.data, form.description.data)
+    t.account_id = current_user.id
+    t.work_type_id = form.work_type.data.id
+    # t.project_id = form.project.data.id
+    
+    db.session().add(t)
+    db.session().commit()
+  
+    return redirect(url_for("timelogs_index"))
+
+# Show the form for creating a new time log
+@app.route("/timelogs/new")
 @login_required
 def timelogs_form():
     return render_template("timelogs/new.html", form = TimeLogForm())
 
-@app.route("/timelogs/<timelog_id>/", methods=["GET", "POST"])
+# GET = show the edit form for a time log, POST = edit a time log
+@app.route("/timelogs/<timelog_id>", methods=["GET", "POST"])
 @login_required
 def timelog(timelog_id):
     t = TimeLog.query.filter_by(id = timelog_id).first()
@@ -51,23 +66,7 @@ def timelog(timelog_id):
   
     return redirect(url_for("timelogs_index"))
 
-@app.route("/timelogs/", methods=["POST"])
-@login_required
-def timelogs_create():
-    form = TimeLogForm(request.form)
-
-    if not form.validate():
-        return render_template("timelogs/new.html", form = form)
-
-    t = TimeLog(form.hours.data, form.description.data)
-    t.account_id = current_user.id
-    t.work_type_id = form.work_type.data.id
-    
-    db.session().add(t)
-    db.session().commit()
-  
-    return redirect(url_for("timelogs_index"))
-
+# Delete a time log
 @app.route("/timelogs/<timelog_id>/delete", methods=["POST"])
 @login_required
 def timelogs_delete(timelog_id):

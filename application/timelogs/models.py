@@ -13,6 +13,7 @@ class TimeLog(Base):
 
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
     work_type_id = db.Column(db.Integer, db.ForeignKey('work_type.id'), nullable=False)
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id'), nullable=False)
     
     def __init__(self, hours, description):
         self.hours = hours
