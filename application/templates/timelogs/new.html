@@ -8,6 +8,21 @@
     <table>
         <tr>
             <td>
+                {{ form.project.label }}
+            </td>
+            <td>
+                {{ form.project }}
+            </td>
+            <td>
+                <ul>
+                    {% for error in form.project.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>
                 {{ form.work_type.label }}
             </td>
             <td>

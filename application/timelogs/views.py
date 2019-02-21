@@ -29,7 +29,7 @@ def timelogs_create():
     t = TimeLog(form.hours.data, form.description.data)
     t.account_id = current_user.id
     t.work_type_id = form.work_type.data.id
-    # t.project_id = form.project.data.id
+    t.project_id = form.project.data.id
     
     db.session().add(t)
     db.session().commit()
@@ -58,6 +58,7 @@ def timelog(timelog_id):
     if not form.validate():
         return render_template("timelogs/new.html", form = form)
 
+    t.project_id = form.project.data.id
     t.work_type_id = form.work_type.data.id
     t.description = form.description.data
     t.hours = form.hours.data
