@@ -13,7 +13,7 @@ def timelogs_index():
     logs = TimeLog.query.filter_by(account_id = current_user.id).all()
 
     for timelog in logs:
-        timelog.work_type_name = WorkType.query.filter_by(id = timelog.work_type_id).first()
+        timelog.work_type_name = WorkType.query.filter_by(id = timelog.work_type_id).first().name
 
     return render_template("timelogs/list.html", timelogs = logs)
 
