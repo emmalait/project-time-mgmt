@@ -2,60 +2,68 @@
 
 <h3>Register</h3>
 
-<form method="POST" action="{{ url_for('auth_register') }}">
-  <table>
-    <tr>
-      <td>
-        {{ form.name.label }}
-      </td>
-      <td>
-        {{ form.name }}
-      </td>
-      <td>
-        {% for error in form.name.errors %}
-          <li>{{ error }}</li>
-        {% endfor %}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {{ form.username.label }}
-      </td>
-      <td>
-        {{ form.username }}
-      </td>
-      <td>
-        {% for error in form.username.errors %}
-          <li>{{ error }}</li>
-        {% endfor %}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {{ form.password.label }}
-      </td>
-      <td>
-        {{ form.password }}
-      </td>
-      <td>
-        {% for error in form.password.errors %}
-          <li>{{ error }}</li>
-        {% endfor %}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {{ form.confirm.label }}
-      </td>
-      <td>
-        {{ form.confirm }}
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <input type="submit" value="Register" />
-      </td>
-    </tr>
-  </table>
-</form>
+<p>
+    <div class="col-12">
+        <form method="POST" action="{{ url_for('auth_register') }}">
+            <div class="form-group row">
+                {{ form.name.label(class="col-sm-2 col-form-label") }}
+                <div class="col-sm-4">
+                    {{ form.name(class="form-control") }}
+                </div>
+                <div class="col-sm-4">        
+                    {% for error in form.name.errors %}
+                        <div class="alert alert-danger">
+                            {{ error }}</br>
+                        </div>
+                    {% endfor %}            
+                </div>
+            </div>
+            <div class="form-group row">
+                {{ form.username.label(class="col-sm-2 col-form-label") }}
+                <div class="col-sm-4">
+                    {{ form.username(class="form-control") }}
+                </div>
+                <div class="col-sm-4">
+                    {% for error in form.username.errors %}
+                        <div class="alert alert-danger">
+                            {{ error }}</br>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="form-group row">
+                {{ form.password.label(class="col-sm-2 col-form-label") }}
+                <div class="col-sm-4">
+                    {{ form.password(class="form-control") }}
+                </div>
+                <div class="col-sm-4">
+                    {% for error in form.password.errors %}
+                        <div class="alert alert-danger">
+                            {{ error }}</br>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="form-group row">
+                {{ form.confirm.label(class="col-sm-2 col-form-label") }}
+                <div class="col-sm-4">
+                    {{ form.confirm(class="form-control") }}
+                </div>
+                <div class="col-sm-4">
+                    {% for error in form.confirm.errors %}
+                        <div class="alert alert-danger">
+                            {{ error }}</br>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-5">
+                    <button type="submit" class="btn btn-dark">Register</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</p>
+
 {% endblock %}
