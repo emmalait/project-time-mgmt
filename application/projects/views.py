@@ -23,8 +23,8 @@ def projects_index():
 def projects_create():
     form = ProjectForm(request.form)
 
-    #if not form.validate():
-    #    return render_template("projects/new.html", form = form)
+    if not form.validate():
+        return render_template("projects/new.html", form = form)
 
     p = Project(form.name.data, form.budget.data)
     p.customer_id = form.customer.data.id
