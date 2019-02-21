@@ -4,58 +4,62 @@
 
 <h2>Create project</h2>
 
-<form method="POST" action="{{ url_for('projects_create') }}">
-    <table>
-        <tr>
-            <td>
-                {{ form.customer.label }}
-            </td>
-            <td>
-                {{ form.customer }}
-            </td>
-            <td>
-                <ul>
-                {% for error in form.customer.errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-                </ul>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                {{ form.name.label }}
-            </td>
-            <td>
-                {{ form.name }}
-            </td>
-            <td>
-                <ul>
-                    {% for error in form.name.errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                {{ form.budget.label }}
-            </td>
-            <td>
-                {{ form.budget }}
-            </td>
-            <td>
-                    <ul>
-                        {% for error in form.budget.errors %}
-                        <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <input type="submit" value="Create project"/>
-            </td>
-        </tr>
-    </table>
-</form>
+<p>
+        <div class="col-8">
+            <form method="POST" action="{{ url_for('projects_create') }}">
+                    <div class="form-group row">
+                            {{ form.customer.label(class="col-sm-2 col-form-label") }}
+                            <div class="col-sm-5">
+                              {{ form.customer(class="custom-select") }}
+                            </div>
+                            <div class="col-sm-5">
+                  
+                                {% for error in form.customer.errors %}
+                                      <div class="alert alert-danger">
+                                          {{ error }}</br>
+                                      </div>
+                                  {% endfor %}     
+                                     
+                              </div>
+                          </div>
+                <div class="form-group row">
+                        {{ form.name.label(class="col-sm-2 col-form-label") }}
+                        <div class="col-sm-3">
+                            {{ form.name(class="form-control") }}
+                        </div>
+                        <div class="col-sm-5">
+                            
+                                {% for error in form.name.errors %}
+                                <div class="alert alert-danger">
+                                    {{ error }}</br>
+                                </div>
+                                {% endfor %}
+                            
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                            {{ form.budget.label(class="col-sm-2 col-form-label") }}
+                            <div class="col-sm-3">
+                              {{ form.budget(class="form-control") }}
+                            </div>
+                            <div class="col-sm-5">
+                                    
+                                        {% for error in form.budget.errors %}
+                                        <div class="alert alert-danger">
+                                            {{ error }}</br>
+                                        </div>
+                                        {% endfor %}
+                                    
+                                </div>
+                          </div>
+                <div class="form-group row">
+                  <div class="col-sm-5">
+                    <button type="submit" class="btn btn-dark">Create project</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+        </p>
+
+
 {% endblock %}

@@ -17,6 +17,9 @@ def worktypes_create():
     form = WorkTypeForm(request.form)
 
     t = WorkType(form.name.data, form.price.data)
+
+    if not form.validate():
+        return render_template("worktypes/new.html", form = form)
     
     db.session().add(t)
     db.session().commit()
