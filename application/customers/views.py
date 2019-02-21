@@ -16,6 +16,9 @@ def customers_index():
 def customers_create():
     form = CustomerForm(request.form)
 
+    if not form.validate():
+        return render_template("customers/new.html", form = form)
+
     c = Customer(form.name.data, form.business_id.data)
     
     db.session().add(c)
