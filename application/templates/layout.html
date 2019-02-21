@@ -16,13 +16,19 @@
         <ul class="navbar-nav mr-auto">
           {% if current_user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('timelogs_form') }} ">Log time</a>
+              <a class="nav-link" href="{{ url_for('timelogs_form') }}">Log time</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('timelogs_index') }} ">Time logs</a>
+              <a class="nav-link" href="{{ url_for('timelogs_index') }}">Time logs</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('worktypes_index') }}">Work types</a>
+            </li>
+            <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('customers_index') }}">Customers</a>
+                </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('projects_index') }}">Projects</a>
             </li>
 
             {% endif %}
