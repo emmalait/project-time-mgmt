@@ -61,7 +61,7 @@ def timelog(timelog_id):
     t = TimeLog.query.filter_by(id = form.id.data).first()
 
     if not form.validate():
-        return render_template("timelogs/new.html", form = form)
+        return render_template("timelogs/view.html", form = form)
 
     t.project_id = form.project.data.id
     t.work_type_id = form.work_type.data.id

@@ -1,0 +1,29 @@
+{% extends "layout.html" %} {% block body %}
+<h2>Users</h2>
+
+<p>
+    <div class="col-md-8">
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Salary</th>
+                <th>Role</th>
+                <th></th>
+            </tr>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.name}}</td>
+                <td>{{ user.salary }}</td>
+                <td>{{ user.role }}</td>
+                <td>
+                    <form method="GET" action="{{ url_for('user', user_id=user.id) }}">
+                        <input type="submit" value="Edit" class="btn btn-dark btn-sm"/>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</p>
+
+{% endblock %}
