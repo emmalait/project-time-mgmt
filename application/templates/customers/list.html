@@ -1,19 +1,23 @@
 {% extends "layout.html" %} {% block body %}
 <h2>Customers</h2>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Business ID</th>
-  </tr>
-  {% for customer in customers %}
-  <tr>
-    <td>{{ customer.name}}</td>
-    <td>{{ customer.business_id }}</td>
-  </tr>
-  {% endfor %}
-</table>
+<p>
+     <div class="col-md-8">
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Business ID</th>
+            </tr>
+            {% for customer in customers %}
+            <tr>
+                <td>{{ customer.name}}</td>
+                <td>{{ customer.business_id }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</p>
 
-<a href="{{ url_for('customers_form') }}">Add a customer</a>
+<p><a href="{{ url_for('customers_form') }}" class="btn btn-dark">Add customer</a></p>
 
 {% endblock %}

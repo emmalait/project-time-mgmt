@@ -2,33 +2,39 @@
 
 <h2>Time logs</h2>
 
-<table>
-  <tr>
-    <th>Work type</th>
-    <th>Description</th>
-    <th>Hours</th>
-    <th>Cleared for invoicing</th>
-    <th></th>
-    <th></th>
-  </tr>
-  {% for timelog in timelogs %}
-  <tr>
-    <td>{{ timelog.work_type_name }}</td>
-    <td>{{ timelog.description }}</td>
-    <td>{{ timelog.hours}}</td>    
-    <td>{{ timelog.cleared }}</td>
-    <td>
-        <form method="GET" action="{{ url_for('timelog', timelog_id=timelog.id) }}">
-            <input type="submit" value="Edit" />
-        </form>
-    </td>
-    <td>
-            <form method="POST" action="{{ url_for('timelogs_delete', timelog_id=timelog.id) }}">
-                <input type="submit" value="Delete" />
-            </form>
-        </td>
-  </tr>
-  {% endfor %}
-</table>
+<p>
+    <div class="col-md-12">
+           <table class="table table-striped">
+                <tr>
+                    <th>Work type</th>
+                    <th>Description</th>
+                    <th>Hours</th>
+                    <th>Cleared for invoicing</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                {% for timelog in timelogs %}
+                <tr>
+                    <td>{{ timelog.work_type_name }}</td>
+                    <td>{{ timelog.description }}</td>
+                    <td>{{ timelog.hours}}</td>    
+                    <td>{{ timelog.cleared }}</td>
+                    <td>
+                        <form method="GET" action="{{ url_for('timelog', timelog_id=timelog.id) }}">
+                            <input type="submit" value="Edit" class="btn btn-dark btn-sm"/>
+                        </form>
+                    </td>
+                    <td>
+                            <form method="POST" action="{{ url_for('timelogs_delete', timelog_id=timelog.id) }}">
+                                <input type="submit" value="Delete" class="btn btn-dark btn-sm"/>
+                            </form>
+                        </td>
+                </tr>
+                {% endfor %}
+            </table>
+    </div>
+</p>
+
+<p><a href="{{ url_for('timelogs_form') }}" class="btn btn-dark">Log time</a></p>
 
 {% endblock %}

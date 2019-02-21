@@ -1,19 +1,23 @@
 {% extends "layout.html" %} {% block body %}
 <h2>Work types</h2>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Price (€/h)</th>
-  </tr>
-  {% for worktype in worktypes %}
-  <tr>
-    <td>{{ worktype.name}}</td>
-    <td>{{ worktype.price }}</td>
-  </tr>
-  {% endfor %}
-</table>
+<p>
+    <div class="col-md-8">
+       <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Price (€/h)</th>
+            </tr>
+            {% for worktype in worktypes %}
+            <tr>
+                <td>{{ worktype.name}}</td>
+                <td>{{ worktype.price }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</p>
 
-<a href="{{ url_for('worktypes_form') }}">Add a work type</a>
+<p><a href="{{ url_for('worktypes_form') }}" class="btn btn-dark">Add work type</a></p>
 
 {% endblock %}
