@@ -5,6 +5,9 @@ from application import app, db
 from application.timelogs.models import TimeLog
 from application.timelogs.forms import TimeLogForm, TimeLogEditForm
 from application.worktypes.models import WorkType
+from application.projects.models import Project
+from application.customers.models import Customer
+
 
 # Show all time logs by the logged in user
 @app.route("/timelogs", methods=["GET"])
@@ -13,6 +16,8 @@ def timelogs_index():
     logs = TimeLog.query.filter_by(account_id = current_user.id).all()
 
     for timelog in logs:
+        timelog.customer_name = Customer.query.filter_by(id = Project.query.filter_by(id = timelog.project_id).first().customer_id).first().name
+        timelog.project_name = Project.query.filter_by(id = timelog.project_id).first().name
         timelog.work_type_name = WorkType.query.filter_by(id = timelog.work_type_id).first().name
 
     return render_template("timelogs/list.html", timelogs = logs)

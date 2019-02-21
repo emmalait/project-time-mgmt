@@ -6,6 +6,8 @@
     <div class="col-md-12">
            <table class="table table-striped">
                 <tr>
+                    <th>Customer</th>
+                    <th>Project</th>
                     <th>Work type</th>
                     <th>Description</th>
                     <th>Hours</th>
@@ -15,6 +17,8 @@
                 </tr>
                 {% for timelog in timelogs %}
                 <tr>
+                    <td>{{ timelog.customer_name }}</td>
+                    <td>{{ timelog.project_name }}</td>
                     <td>{{ timelog.work_type_name }}</td>
                     <td>{{ timelog.description }}</td>
                     <td>{{ timelog.hours}}</td>    
