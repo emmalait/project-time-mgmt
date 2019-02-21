@@ -10,7 +10,8 @@ class User(Base):
     name = db.Column(db.String(144), nullable=False)
     username = db.Column(db.String(144), nullable=False)
     password = db.Column(db.String(144), nullable=False)
-    manager = db.Column(db.Boolean, nullable=True)
+    role = db.Column(db.String(144), nullable=True)
+    salary = db.Column(db.Numeric(scale=2), nullable=False)
 
     timelogs = db.relationship("TimeLog", backref='account', lazy=True)
 
@@ -18,7 +19,8 @@ class User(Base):
         self.name = name
         self.username = username
         self.password = password
-        self.manager = False
+        self.role = "employee"
+        self.salary = 0
 
     def get_id(self):
         return self.id
