@@ -1,0 +1,19 @@
+{% extends "layout.html" %} {% block body %}
+<h2>Customers</h2>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Business ID</th>
+  </tr>
+  {% for customer in customers %}
+  <tr>
+    <td>{{ customer.name}}</td>
+    <td>{{ customer.business_id }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<a href="{{ url_for('customers_form') }}">Add a customer</a>
+
+{% endblock %}

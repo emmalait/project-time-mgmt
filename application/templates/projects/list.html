@@ -1,0 +1,20 @@
+{% extends "layout.html" %} {% block body %}
+
+<h2>Projects</h2>
+
+<table>
+  <tr>
+    <th>Customer</th>
+    <th>Name</th>
+    <th>Budget</th>
+  </tr>
+  {% for project in projects %}
+  <tr>
+    <td>{{ project.customer_name }}</td>
+    <td>{{ project.name }}</td>
+    <td>{{ project.budget }}</td>    
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}

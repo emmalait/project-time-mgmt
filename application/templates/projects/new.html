@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+  
+{% block body %}
+
+<h2>Create project</h2>
+
+<form method="POST" action="{{ url_for('projects_create') }}">
+    <table>
+        <tr>
+            <td>
+                {{ form.customer.label }}
+            </td>
+            <td>
+                {{ form.customer }}
+            </td>
+            <td>
+                <ul>
+                {% for error in form.customer.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ form.name.label }}
+            </td>
+            <td>
+                {{ form.name }}
+            </td>
+            <td>
+                <ul>
+                    {% for error in form.name.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ form.budget.label }}
+            </td>
+            <td>
+                {{ form.budget }}
+            </td>
+            <td>
+                    <ul>
+                        {% for error in form.budget.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Create project"/>
+            </td>
+        </tr>
+    </table>
+</form>
+{% endblock %}

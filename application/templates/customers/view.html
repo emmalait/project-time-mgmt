@@ -1,0 +1,17 @@
+{% extends "layout.html" %} {% block body %}
+<h2>{{ customer.name }}</h2>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Business ID</th>
+  </tr>
+  <tr>
+    <td>{{ customer.name}}</td>
+    <td>{{ customer.business_id }}</td>
+  </tr>
+</table>
+
+<a href="{{ url_for('customers_index') }}">Customers</a>
+
+{% endblock %}
