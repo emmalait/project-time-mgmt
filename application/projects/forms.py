@@ -10,7 +10,7 @@ def customer_choices():
         return Customer.query.all()
 
 class ProjectForm(FlaskForm):
-    customer = QuerySelectField(u"Customer", query_factory = customer_choices)
+    customer = QuerySelectField("Customer", query_factory = customer_choices, get_label = "name")
     name = StringField("Name", [validators.Length(min=2, max=144)])
     budget = DecimalField("Budget", [validators.InputRequired], places=2)
 

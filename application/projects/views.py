@@ -10,12 +10,12 @@ from application.customers.models import Customer
 @app.route("/projects", methods=["GET"])
 @login_required
 def projects_index():
-    projects = Project.query.all()
+    ps = Project.query.all()
 
-    for project in projects:
-        project.customer_name = Customer.query.filter_by(id = project.customer_id).first()
+    for project in ps:
+        project.customer_name = Customer.query.filter_by(id = project.customer_id).first().name
 
-    return render_template("projects/list.html", projects = projects)
+    return render_template("projects/list.html", projects = ps)
 
 # Create a new project
 @app.route("/projects", methods=["POST"])
@@ -23,8 +23,8 @@ def projects_index():
 def projects_create():
     form = ProjectForm(request.form)
 
-    if not form.validate():
-        return render_template("projects/new.html", form = form)
+    #if not form.validate():
+    #    return render_template("projects/new.html", form = form)
 
     p = Project(form.name.data, form.budget.data)
     p.customer_id = form.customer.data.id
