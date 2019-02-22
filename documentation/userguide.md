@@ -1,3 +1,11 @@
+## Installation guide
+
+* [Download](https://github.com/emmalait/project-time-mgmt/archive/master.zip) Git repository
+* Navigate to repository root and activate virtual environment via command line: `source venv/bin/activate`
+* Install project dependencies in the virtual environment: `pip install -r requirements.txt`
+* Run app: `python3 run.py`
+* Application is now running at <http://127.0.0.1:5000>
+
 ## User guide
 
 ### Registration
