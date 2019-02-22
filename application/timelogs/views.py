@@ -82,3 +82,18 @@ def timelogs_delete(timelog_id):
     db.session().commit()
   
     return redirect(url_for("timelogs_index"))
+
+# Toggle 'cleared' for time log
+@app.route("/timelogs/<timelog_id>/clear", methods=["POST"])
+@login_required
+def timelogs_toggle_cleared(timelog_id):
+    t = TimeLog.query.filter_by(id = timelog_id).first()
+    
+    if t.cleared == False:
+        t.cleared = True
+    else:
+        t.cleared = False
+    
+    db.session().commit()
+  
+    return redirect(url_for("timelogs_index"))

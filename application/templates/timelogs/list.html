@@ -3,7 +3,7 @@
 <h2>Time logs</h2>
 
 <p>
-    <div class="col-md-12">
+    <div class="col-12">
            <table class="table table-striped">
                 <tr>
                     <th>Customer</th>
@@ -14,6 +14,9 @@
                     <th>Cleared for invoicing</th>
                     <th></th>
                     <th></th>
+                    {% if current_user.role == "manager" %}
+                    <th></th>
+                    {% endif %}
                 </tr>
                 {% for timelog in timelogs %}
                 <tr>
@@ -21,18 +24,32 @@
                     <td>{{ timelog.project_name }}</td>
                     <td>{{ timelog.work_type_name }}</td>
                     <td>{{ timelog.description }}</td>
-                    <td>{{ timelog.hours}}</td>    
-                    <td>{{ timelog.cleared }}</td>
+                    <td>{{ timelog.hours}}</td>  
+                    <td>
+                        {% if timelog.cleared == True %}
+                        <span class="badge badge-success">Cleared</span>
+                        {% endif %}
+                        {% if timelog.cleared == False %}
+                        <span class="badge badge-secondary">Not cleared</span>
+                        {% endif %}
+                    </td>
                     <td>
                         <form method="GET" action="{{ url_for('timelog', timelog_id=timelog.id) }}">
                             <input type="submit" value="Edit" class="btn btn-dark btn-sm"/>
                         </form>
                     </td>
                     <td>
-                            <form method="POST" action="{{ url_for('timelogs_delete', timelog_id=timelog.id) }}">
-                                <input type="submit" value="Delete" class="btn btn-dark btn-sm"/>
-                            </form>
-                        </td>
+                        <form method="POST" action="{{ url_for('timelogs_delete', timelog_id=timelog.id) }}">
+                            <input type="submit" value="Delete" class="btn btn-dark btn-sm"/>
+                        </form>
+                    </td>
+                    {% if current_user.role == "manager" %}
+                    <td>
+                        <form method="POST" action="{{ url_for('timelogs_toggle_cleared', timelog_id=timelog.id) }}">
+                            <input type="submit" value="Toggle cleared" class="btn btn-dark btn-sm"/>
+                        </form>
+                    </td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </table>
