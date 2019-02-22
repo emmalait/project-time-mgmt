@@ -10,5 +10,5 @@ Test credentials:
 ## Documentation
 * [Architecture](https://github.com/emmalait/project-time-mgmt/blob/master/documentation/architecture.md)
 * [Features & user stories](https://github.com/emmalait/project-time-mgmt/blob/master/documentation/features.md)
-* [User guide](https://github.com/emmalait/project-time-mgmt/blob/master/documentation/userguide.md)
-
+* [Installation guide](https://github.com/emmalait/project-time-mgmt/blob/master/documentation/guides.md#installation-guide)
+* [User guide](https://github.com/emmalait/project-time-mgmt/blob/master/documentation/guides.md#user-guide)
