@@ -40,11 +40,22 @@
         </ul>
         
         <div class="form-inline mt-2 mt-md-0">
-          {% if current_user.is_authenticated %}
-          <div class="text-light">Logged in as {{ current_user.name }}</div> <div class="text-muted">&nbsp;>>&nbsp;</div> <a href="{{ url_for('auth_logout') }}" class="text-light">Log out</a>
-          {% else %}
-            <a href="{{ url_for('auth_login') }}" class="text-light">Log in</a> <div class="text-muted">&nbsp;|&nbsp;</div> <a href="{{ url_for('auth_register') }}" class="text-light">Register</a>
-          {% endif %}
+            {% if current_user.is_authenticated %}
+            <div class="text-light">
+                Logged in as {{ current_user.name }}
+
+                &nbsp;
+                {% if current_user.role == "manager" %}
+                <span class="badge badge-primary">{{ current_user.role }}</span>
+                {% else %}
+                <span class="badge badge-secondary">{{ current_user.role }}</span>
+                {% endif %}
+                &nbsp;
+            </div>
+            <div class="text-muted">&nbsp;>>&nbsp;</div> <a href="{{ url_for('auth_logout') }}" class="text-light">Log out</a>
+            {% else %}
+                <a href="{{ url_for('auth_login') }}" class="text-light">Log in</a> <div class="text-muted">&nbsp;|&nbsp;</div> <a href="{{ url_for('auth_register') }}" class="text-light">Register</a>
+            {% endif %}
         </div>
       </div>
     </nav>

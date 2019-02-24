@@ -14,7 +14,17 @@
             <tr>
                 <td>{{ user.name}}</td>
                 <td>{{ user.salary }}</td>
-                <td>{{ user.role }}</td>
+                <td>
+                    {% if user.role == "manager" %}
+
+                    <span class="badge badge-primary">{{ user.role }}</span>
+
+                    {% else %}
+
+                    <span class="badge badge-secondary">{{ user.role }}</span>
+
+                    {% endif %}
+                    </td>
                 <td>
                     <form method="GET" action="{{ url_for('user', user_id=user.id) }}">
                         <input type="submit" value="Edit" class="btn btn-dark btn-sm"/>
