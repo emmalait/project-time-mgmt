@@ -81,7 +81,7 @@ def timelogs_delete(timelog_id):
     db.session().delete(t)
     db.session().commit()
   
-    return redirect(url_for("timelogs_index"))
+    return redirect(request.referrer)
 
 # Toggle 'cleared' for time log
 @app.route("/timelogs/<timelog_id>/clear", methods=["POST"])
@@ -96,4 +96,4 @@ def timelogs_toggle_cleared(timelog_id):
     
     db.session().commit()
   
-    return redirect(url_for("timelogs_index"))
+    return redirect(request.referrer)
