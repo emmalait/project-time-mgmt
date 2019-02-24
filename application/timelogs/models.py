@@ -54,7 +54,7 @@ class TimeLog(Base):
                         " LEFT JOIN project ON time_log.project_id = project.id"
                         " LEFT JOIN work_type ON time_log.work_type_id"
                         " LEFT JOIN account on time_log.account_id = account.id"
-                        " WHERE project.id = " + str(project_id) + " AND time_log.cleared = 1")
+                        " WHERE project.id = " + str(project_id) + " AND time_log.cleared = " + str(1))
 
         res = db.engine.execute(stmt)
     
@@ -78,7 +78,7 @@ class TimeLog(Base):
                         " LEFT JOIN project ON time_log.project_id = project.id"
                         " LEFT JOIN work_type ON time_log.work_type_id"
                         " LEFT JOIN account on time_log.account_id = account.id"
-                        " WHERE project.id = " + str(project_id) + " AND time_log.cleared = 0")
+                        " WHERE project.id = " + str(project_id) + " AND time_log.cleared = " + str(0))
 
         res = db.engine.execute(stmt)
         

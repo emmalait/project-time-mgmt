@@ -4,12 +4,13 @@
   
 
     {% if current_user.is_authenticated %}
-        <p>Hello {{ current_user.name }}!</p>
+        <h4>Hello {{ current_user.name }}!</h4>
 
-        <p>Start logging!</p>
+        <h5>Your most recent time logs</h5>
 
     {% else %}
         <p>
+            
             Start by <a href="{{ url_for('auth_login') }}">logging in</a> or <a href="{{ url_for('auth_register') }}">registering.</a>
         </p>
         
