@@ -87,13 +87,13 @@ class TimeLog(Base):
         if os.environ.get("HEROKU"):
             stmt = text("SELECT time_log.id, account.name, work_type.name, time_log.description, time_log.hours, time_log.cleared, account.id FROM time_log"
                         " LEFT JOIN project ON time_log.project_id = project.id"
-                        " LEFT JOIN work_type ON time_log.work_type_id"
+                        " LEFT JOIN work_type ON time_log.work_type_id = work_type.id"
                         " LEFT JOIN account on time_log.account_id = account.id"
                         " WHERE project.id = " + str(project_id) + " AND time_log.cleared = " + False)
         else:
             stmt = text("SELECT time_log.id, account.name, work_type.name, time_log.description, time_log.hours, time_log.cleared, account.id FROM time_log"
                         " LEFT JOIN project ON time_log.project_id = project.id"
-                        " LEFT JOIN work_type ON time_log.work_type_id"
+                        " LEFT JOIN work_type ON time_log.work_type_id = work_type.id"
                         " LEFT JOIN account on time_log.account_id = account.id"
                         " WHERE project.id = " + str(project_id) + " AND time_log.cleared = 1")
 
