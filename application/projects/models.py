@@ -18,10 +18,16 @@ class Project(Base):
     
     @staticmethod
     def get_costs(project_id):
-        stmt = text("SELECT SUM(time_log.hours * account.salary) FROM project"
+        if os.environ.get("HEROKU"):
+            stmt = text("SELECT SUM(time_log.hours * account.salary) FROM project"
                         " LEFT JOIN time_log ON project.id = time_log.project_id"
                         " LEFT JOIN account on time_log.account_id = account.id"
-                        " WHERE project.id = " + str(project_id) + " AND time_log.cleared = 1")
+                        " WHERE project.id = " + str(project_id) + " AND time_log.cleared = " + True)
+        else:
+            stmt = text("SELECT SUM(time_log.hours * account.salary) FROM project"
+                            " LEFT JOIN time_log ON project.id = time_log.project_id"
+                            " LEFT JOIN account on time_log.account_id = account.id"
+                            " WHERE project.id = " + str(project_id) + " AND time_log.cleared = 1")
 
         res = db.engine.execute(stmt)
         
@@ -37,7 +43,13 @@ class Project(Base):
     
     @staticmethod
     def get_revenues(project_id):
-        stmt = text("SELECT SUM(time_log.hours * work_type.price) FROM project"
+        if os.environ.get("HEROKU"):
+            stmt = text("SELECT SUM(time_log.hours * work_type.price) FROM project"
+                            " LEFT JOIN time_log ON project.id =time_log.project_id"
+                            " LEFT JOIN work_type ON time_log.work_type_id"
+                            " WHERE project.id = " + str(project_id) + " AND time_log.cleared = " + True)
+        else:
+            stmt = text("SELECT SUM(time_log.hours * work_type.price) FROM project"
                         " LEFT JOIN time_log ON project.id =time_log.project_id"
                         " LEFT JOIN work_type ON time_log.work_type_id"
                         " WHERE project.id = " + str(project_id) + " AND time_log.cleared = 1")
