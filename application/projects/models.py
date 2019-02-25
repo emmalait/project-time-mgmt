@@ -49,7 +49,7 @@ class Project(Base):
             stmt = text("SELECT SUM(time_log.hours * work_type.price) FROM project"
                             " LEFT JOIN time_log ON project.id = time_log.project_id"
                             " LEFT JOIN work_type ON time_log.work_type_id"
-                            " WHERE project.id = " + str(project_id) + " AND time_log.cleared = " + str(t))
+                            " WHERE project.id = " + str(project_id) + " AND time_log.cleared = t")
         else:
             stmt = text("SELECT SUM(time_log.hours * work_type.price) FROM project"
                         " LEFT JOIN time_log ON project.id = time_log.project_id"
