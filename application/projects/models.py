@@ -5,6 +5,8 @@ from application.models import Base
 
 from sqlalchemy import text
 
+import os
+
 class Project(Base):
 
     name = db.Column(db.String(144), nullable=False)
