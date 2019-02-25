@@ -24,7 +24,7 @@ class Project(Base):
             stmt = text("SELECT SUM(time_log.hours * account.salary) FROM project"
                             " LEFT JOIN time_log ON project.id = time_log.project_id"
                             " LEFT JOIN account ON time_log.account_id = account.id"
-                            " WHERE project.id = " + str(project_id) + " AND time_log.cleared = " + True)
+                            " WHERE project.id = " + str(project_id) + " AND time_log.cleared = " + str(t))
         else:
             stmt = text("SELECT SUM(time_log.hours * account.salary) FROM project"
                             " LEFT JOIN time_log ON project.id = time_log.project_id"
@@ -47,12 +47,12 @@ class Project(Base):
     def get_revenues(project_id):
         if os.environ.get("HEROKU"):
             stmt = text("SELECT SUM(time_log.hours * work_type.price) FROM project"
-                            " LEFT JOIN time_log ON project.id =time_log.project_id"
+                            " LEFT JOIN time_log ON project.id = time_log.project_id"
                             " LEFT JOIN work_type ON time_log.work_type_id"
-                            " WHERE project.id = " + str(project_id) + " AND time_log.cleared = " + True)
+                            " WHERE project.id = " + str(project_id) + " AND time_log.cleared = " + str(t))
         else:
             stmt = text("SELECT SUM(time_log.hours * work_type.price) FROM project"
-                        " LEFT JOIN time_log ON project.id =time_log.project_id"
+                        " LEFT JOIN time_log ON project.id = time_log.project_id"
                         " LEFT JOIN work_type ON time_log.work_type_id"
                         " WHERE project.id = " + str(project_id) + " AND time_log.cleared = 1")
 
