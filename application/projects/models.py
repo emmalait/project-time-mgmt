@@ -22,13 +22,13 @@ class Project(Base):
     def get_costs(project_id):
         if os.environ.get("HEROKU"):
             stmt = text("SELECT SUM(time_log.hours * account.salary) FROM project"
-                        " LEFT JOIN time_log ON project.id = time_log.project_id"
-                        " LEFT JOIN account on time_log.account_id = account.id"
-                        " WHERE project.id = " + str(project_id) + " AND time_log.cleared = " + True)
+                            " LEFT JOIN time_log ON project.id = time_log.project_id"
+                            " LEFT JOIN account ON time_log.account_id = account.id"
+                            " WHERE project.id = " + str(project_id) + " AND time_log.cleared = " + str(1))
         else:
             stmt = text("SELECT SUM(time_log.hours * account.salary) FROM project"
                             " LEFT JOIN time_log ON project.id = time_log.project_id"
-                            " LEFT JOIN account on time_log.account_id = account.id"
+                            " LEFT JOIN account ON time_log.account_id = account.id"
                             " WHERE project.id = " + str(project_id) + " AND time_log.cleared = 1")
 
         res = db.engine.execute(stmt)
