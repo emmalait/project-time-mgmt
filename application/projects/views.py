@@ -48,7 +48,7 @@ def project(project_id):
     p = Project.query.filter_by(id = project_id).first()
 
     p.customer_name = Customer.query.filter_by(id = p.customer_id).first().name
-    p.budget = float (p.budget)
+    p.budget = float(p.budget)
     p.costs = Project.get_costs(project_id)
     p.revenues = Project.get_revenues(project_id)
 
