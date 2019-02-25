@@ -48,9 +48,21 @@ def project(project_id):
     p = Project.query.filter_by(id = project_id).first()
 
     p.customer_name = Customer.query.filter_by(id = p.customer_id).first().name
+
     p.budget = float(str(p.budget))
-    p.costs = float(str(Project.get_costs(project_id)))
-    p.revenues = float(str(Project.get_revenues(project_id)))
+    costs = Project.get_costs(project_id)
+
+    if costs:
+        p.costs = float(str(Project.get_costs(project_id)))
+    else:
+        p.costs = float(str(0))
+
+    revenues = Project.get_revenues(project_id)
+
+    if revenues:
+        p.revenues = float(str(Project.get_revenues(project_id)))
+    else:
+        p.revenues = float(str(0))
 
     cleared_tls = TimeLog.find_cleared_timelogs_by_project(project_id)
     uncleared_tls = TimeLog.find_uncleared_timelogs_by_project(project_id)
