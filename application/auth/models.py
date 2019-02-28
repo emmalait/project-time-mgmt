@@ -15,11 +15,11 @@ class User(Base):
 
     timelogs = db.relationship("TimeLog", backref='account', lazy=True)
 
-    def __init__(self, name, username, password):
+    def __init__(self, name, username, password, role):
         self.name = name
         self.username = username
         self.password = password
-        self.role = "employee"
+        self.role = role
         self.salary = 0
 
     def get_id(self):

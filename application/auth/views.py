@@ -5,6 +5,7 @@ from application import app, db, login_required
 from application.auth.models import User
 from application.auth.forms import LoginForm, RegisterForm, UserEditForm
 
+# Handle login
 @app.route("/auth/login", methods = ["GET", "POST"])
 def auth_login():
     if request.method == "GET":
@@ -19,11 +20,13 @@ def auth_login():
     login_user(user)
     return redirect(url_for("timelogs_index"))
 
+# Handle logout
 @app.route("/auth/logout")
 def auth_logout():
     logout_user()
     return redirect(url_for("auth_login"))
 
+# Create a new user
 @app.route("/auth/register", methods=["GET", "POST"])
 def auth_register():
     if request.method == "GET":
@@ -33,10 +36,18 @@ def auth_register():
 
     if not form.validate():
         return render_template("auth/register.html", form = form)
-
-    t = User(form.name.data, form.username.data, form.password.data)
     
-    db.session().add(t)
+    users = User.query.all()
+
+    if users:
+        role = "employee"
+    
+    else:
+        role = "manager"
+
+    u = User(form.name.data, form.username.data, form.password.data, role)
+    
+    db.session().add(u)
     db.session().commit()
   
     return redirect(url_for("auth_login"))
