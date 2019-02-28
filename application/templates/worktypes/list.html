@@ -7,11 +7,23 @@
             <tr>
                 <th>Name</th>
                 <th>Price (€/h)</th>
+                <th></th>
+                <th></th>
             </tr>
             {% for worktype in worktypes %}
             <tr>
                 <td>{{ worktype.name}}</td>
                 <td>{{ worktype.price }}</td>
+                <td>
+                    <form method="GET" action="{{ url_for('worktype', worktype_id=worktype.id) }}">
+                        <input type="submit" value="Edit" class="btn btn-dark btn-sm"/>
+                    </form>
+                </td>
+                <td>
+                    <form method="POST" action="{{ url_for('worktypes_delete', worktype_id=worktype.id) }}">
+                        <input type="submit" value="Delete" class="btn btn-dark btn-sm"/>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </table>

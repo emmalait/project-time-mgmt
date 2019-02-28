@@ -1,7 +1,15 @@
 from flask_wtf import FlaskForm
-from wtforms import DecimalField, StringField, validators
+from wtforms import DecimalField, StringField, HiddenField, validators
 
 class WorkTypeForm(FlaskForm):
+    name = StringField("Name", [validators.Length(min=2, max=144)])
+    price = DecimalField("Price", places=2)
+
+    class Meta:
+        csrf = False
+
+class WorkTypeEditForm(FlaskForm):
+    id = HiddenField()
     name = StringField("Name", [validators.Length(min=2, max=144)])
     price = DecimalField("Price", places=2)
 
