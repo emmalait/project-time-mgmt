@@ -8,12 +8,20 @@
             <tr>
                 <th>Customer</th>
                 <th>Name</th>
+                <th>Budget</th>
+                <th>Costs</th>
+                <th>Revenues</th>
+                <th>Profit</th>
                 <th></th>
             </tr>
             {% for project in projects %}
             <tr>
                 <td>{{ project.customer_name }}</td>
                 <td>{{ project.name }}</td>
+                <td>{{ project.budget }}</td>
+                <td>{{ project.costs }}</td>
+                <td>{{ project.revenues }}</td>
+                <td>{{ project.revenues-project.costs }}</td>
                 <td><a href="{{ url_for('project', project_id=project.id) }}" class="btn btn-dark btn-sm">View details</a></td>    
             </tr>
             {% endfor %}
