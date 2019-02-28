@@ -7,11 +7,17 @@
             <tr>
                 <th>Name</th>
                 <th>Business ID</th>
+                <th></th>
             </tr>
             {% for customer in customers %}
             <tr>
                 <td>{{ customer.name}}</td>
                 <td>{{ customer.business_id }}</td>
+                <td>
+                    <form method="GET" action="{{ url_for('customer', customer_id=customer.id) }}">
+                        <input type="submit" value="Edit" class="btn btn-dark btn-sm"/>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </table>
