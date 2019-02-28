@@ -26,7 +26,7 @@ class TimeLog(Base):
         stmt = text("SELECT work_type.name, time_log.description, time_log.hours FROM time_log"
                     " LEFT JOIN account ON time_log.account_id = account.id"
                     " LEFT JOIN work_type ON time_log.work_type_id = work_type.id"
-                    " WHERE work_type.id = " + str(worktype_id) + " AND account.id = " + str(current_user.id))
+                    " WHERE work_type.id = :worktype_id) AND account.id = :current_user.id").params(worktype_id = worktype_id, current_user.id = current_user.id)
         res = db.engine.execute(stmt)
   
         response = []
@@ -52,19 +52,19 @@ class TimeLog(Base):
     
     @staticmethod
     def find_cleared_timelogs_by_project(project_id):
-
+        # Use a different version of the query for Heroku because of PostgreSQL's boolean handling
         if os.environ.get("HEROKU"):
             stmt = text("SELECT time_log.id, account.name, work_type.name, time_log.description, time_log.hours, time_log.cleared, account.id FROM time_log"
                         " LEFT JOIN project ON time_log.project_id = project.id"
                         " LEFT JOIN work_type ON time_log.work_type_id = work_type.id"
                         " LEFT JOIN account on time_log.account_id = account.id"
-                        " WHERE project.id = " + str(project_id) + " AND time_log.cleared = 't'")
+                        " WHERE project.id = :project_id AND time_log.cleared = 't'").params(project_id = project_id)
         else:
             stmt = text("SELECT time_log.id, account.name, work_type.name, time_log.description, time_log.hours, time_log.cleared, account.id FROM time_log"
                         " LEFT JOIN project ON time_log.project_id = project.id"
                         " LEFT JOIN work_type ON time_log.work_type_id = work_type.id"
                         " LEFT JOIN account on time_log.account_id = account.id"
-                        " WHERE project.id = " + str(project_id) + " AND time_log.cleared = 1")
+                        " WHERE project.id = :project_id AND time_log.cleared = 1").params(project_id = project_id)
 
         res = db.engine.execute(stmt)
     
@@ -84,18 +84,19 @@ class TimeLog(Base):
 
     @staticmethod
     def find_uncleared_timelogs_by_project(project_id):
+        # Use a different version of the query for Heroku because of PostgreSQL's boolean handling
         if os.environ.get("HEROKU"):
             stmt = text("SELECT time_log.id, account.name, work_type.name, time_log.description, time_log.hours, time_log.cleared, account.id FROM time_log"
                         " LEFT JOIN project ON time_log.project_id = project.id"
                         " LEFT JOIN work_type ON time_log.work_type_id = work_type.id"
                         " LEFT JOIN account on time_log.account_id = account.id"
-                        " WHERE project.id = " + str(project_id) + " AND time_log.cleared = 'f'")
+                        " WHERE project.id = :project_id AND time_log.cleared = 'f'").params(project_id = project_id)
         else:
             stmt = text("SELECT time_log.id, account.name, work_type.name, time_log.description, time_log.hours, time_log.cleared, account.id FROM time_log"
                         " LEFT JOIN project ON time_log.project_id = project.id"
                         " LEFT JOIN work_type ON time_log.work_type_id = work_type.id"
                         " LEFT JOIN account on time_log.account_id = account.id"
-                        " WHERE project.id = " + str(project_id) + " AND time_log.cleared = 0")
+                        " WHERE project.id = :project_id) AND time_log.cleared = 0").params(project_id = project_id)
 
         res = db.engine.execute(stmt)
         
