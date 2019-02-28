@@ -11,7 +11,6 @@ from application.worktypes.forms import WorkTypeForm, WorkTypeEditForm
 def worktypes_index():
     return render_template("worktypes/list.html", worktypes = WorkType.query.all())
 
-
 # Create a new work type
 @app.route("/worktypes", methods=["POST"])
 @login_required
@@ -44,15 +43,6 @@ def worktypes_delete(worktype_id):
 @login_required
 def worktypes_form():
     return render_template("worktypes/new.html", form = WorkTypeForm())
-
-# View a work type
-#@app.route("/worktypes/<worktype_id>", methods=["GET"])
-#@login_required
-#def worktype(worktype_id):
-#    wt = WorkType.query.filter_by(id = worktype_id).first()
-#  
-#    return render_template("worktypes/view.html", worktype = wt)
-
 
 # GET = show the edit form for a work type, POST = edit a work type
 @app.route("/worktypes/<worktype_id>", methods=["GET", "POST"])
