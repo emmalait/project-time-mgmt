@@ -96,7 +96,7 @@ class TimeLog(Base):
                         " LEFT JOIN project ON time_log.project_id = project.id"
                         " LEFT JOIN work_type ON time_log.work_type_id = work_type.id"
                         " LEFT JOIN account on time_log.account_id = account.id"
-                        " WHERE project.id = :project_id) AND time_log.cleared = 0").params(project_id = project_id)
+                        " WHERE project.id = :project_id AND time_log.cleared = 0").params(project_id = project_id)
 
         res = db.engine.execute(stmt)
         
