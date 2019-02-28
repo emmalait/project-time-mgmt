@@ -26,7 +26,7 @@ class TimeLog(Base):
         stmt = text("SELECT work_type.name, time_log.description, time_log.hours FROM time_log"
                     " LEFT JOIN account ON time_log.account_id = account.id"
                     " LEFT JOIN work_type ON time_log.work_type_id = work_type.id"
-                    " WHERE work_type.id = :worktype_id) AND account.id = :current_user.id").params(worktype_id = worktype_id, current_user.id = current_user.id)
+                    " WHERE work_type.id = :worktype_id AND account.id = :user_id").params(worktype_id = worktype_id, user_id = current_user.id)
         res = db.engine.execute(stmt)
   
         response = []
