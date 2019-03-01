@@ -55,15 +55,19 @@ def timelog(timelog_id):
     p = Project.query.filter_by(id = t.project_id).first()
     wt = WorkType.query.filter_by(id = t.work_type_id).first()
     
-    if request.method == "GET":
-        editForm = TimeLogEditForm(
+    editForm = TimeLogEditForm(
             id = t.id,
             hours = t.hours,
             project = p,
             work_type = wt,
             description = t.description
         )
+
+    if request.method == "GET":
         return render_template("timelogs/view.html", form = editForm)
+
+    if t.cleared == True:
+        return render_template("timelogs/view.html", form = editForm, error = "Time log cannot be edited because it has been marked as invoiced.")
 
     form = TimeLogEditForm(request.form)
 
@@ -86,6 +90,16 @@ def timelog(timelog_id):
 @login_required
 def timelogs_delete(timelog_id):
     t = TimeLog.query.filter_by(id = timelog_id).first()
+
+    if t.cleared == True:
+        logs = TimeLog.query.filter_by(account_id = current_user.id).all()
+
+        for timelog in logs:
+            timelog.customer_name = Customer.query.filter_by(id = Project.query.filter_by(id = timelog.project_id).first().customer_id).first().name
+            timelog.project_name = Project.query.filter_by(id = timelog.project_id).first().name
+            timelog.work_type_name = WorkType.query.filter_by(id = timelog.work_type_id).first().name
+
+        return render_template("timelogs/list.html", timelogs = logs, error = "Time log cannot be deleted because it has been marked as invoiced.")
     
     db.session().delete(t)
     db.session().commit()

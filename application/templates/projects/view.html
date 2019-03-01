@@ -174,8 +174,6 @@
                         <th>Description</th>
                         <th>Hours</th>
                         <th>Invoicing status</th>
-                        <th></th>
-                        <th></th>
                         {% if current_user.role == "manager" %}
                         <th></th>
                         {% endif %}
@@ -192,20 +190,6 @@
                             {% endif %}
                             {% if timelog.cleared == False %}
                             <span class="badge badge-secondary">Not invoiced</span>
-                            {% endif %}
-                        </td>
-                        <td>
-                            {% if current_user.id == timelog.user_id or current_user.role == "manager" %}
-                            <form method="GET" action="{{ url_for('timelog', timelog_id=timelog.id) }}">
-                                <input type="submit" value="Edit" class="btn btn-dark btn-sm"/>
-                            </form>
-                            {% endif %}
-                        </td>
-                        <td>
-                            {% if current_user.id == timelog.user_id or current_user.role == "manager" %}
-                            <form method="POST" action="{{ url_for('timelogs_delete', timelog_id=timelog.id) }}">
-                                <input type="submit" value="Delete" class="btn btn-dark btn-sm"/>
-                            </form>
                             {% endif %}
                         </td>
                         {% if current_user.role == "manager" %}

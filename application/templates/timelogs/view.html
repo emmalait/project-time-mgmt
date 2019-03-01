@@ -2,6 +2,14 @@
 
 <h2>Time log</h2>
 
+{% if error %}
+
+<div class="alert alert-danger">
+        {{ error }}
+</div>
+
+{% endif %}
+
 <div class="col-10">
         <form method="POST" action="{{ url_for('timelog', timelog_id=form.id.data) }}">
                 {{ form.id}}

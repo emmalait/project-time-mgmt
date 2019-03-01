@@ -2,6 +2,14 @@
 
 <h2>Time logs</h2>
 
+{% if error %}
+
+<div class="alert alert-danger">
+        {{ error }}
+</div>
+
+{% endif %}
+
 {% if timelogs %}
 <p>
     <div class="col-12">
@@ -32,14 +40,18 @@
                         {% endif %}
                     </td>
                     <td>
+                        {% if timelog.cleared == False %}
                         <form method="GET" action="{{ url_for('timelog', timelog_id=timelog.id) }}">
                             <input type="submit" value="Edit" class="btn btn-dark btn-sm"/>
                         </form>
+                        {% endif %}
                     </td>
                     <td>
+                        {% if timelog.cleared == False %}
                         <form method="POST" action="{{ url_for('timelogs_delete', timelog_id=timelog.id) }}">
                             <input type="submit" value="Delete" class="btn btn-dark btn-sm"/>
                         </form>
+                        {% endif %}
                     </td>
                 </tr>
                 {% endfor %}
