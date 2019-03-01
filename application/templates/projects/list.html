@@ -2,6 +2,7 @@
 
 <h2>Projects</h2>
 
+{% if projects %}
 <p>
     <div class="col-md-10">
        <table class="table table-striped">
@@ -32,6 +33,12 @@
         </table>
     </div>
 </p>
+
+{% else %}
+
+<p>No projects created yet.</p>
+
+{% endif %}
 
 <a href="{{ url_for('projects_form') }}" class="btn btn-dark">Add project</a>
 

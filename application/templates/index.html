@@ -7,6 +7,8 @@
 
         <h5>Your projects</h5>
 
+        {% if projects %}
+
         <p>
     <div class="col-md-10">
        <table class="table table-striped">
@@ -38,7 +40,15 @@
     </div>
 </p>
 
+{% else %}
+
+<p> You have not been assigned to any projects yet.</p>
+
+{% endif %}
+
 <h5>Your recent time logs</h5>
+
+{% if timelogs %}
 
 <p>
         <div class="col-12">
@@ -87,6 +97,12 @@
                 </table>
         </div>
     </p>
+
+    {% else %}
+
+    <p>You have not logged any hours yet.</p>
+    
+    {% endif %}
 
     <p><a href="{{ url_for('timelogs_form') }}" class="btn btn-dark">Log time</a></p>
 

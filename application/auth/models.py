@@ -35,20 +35,6 @@ class User(Base):
         return True
     
     @staticmethod
-    def find_users_with_no_logs():
-        stmt = text("SELECT account.id, account.name FROM account"
-                    " LEFT JOIN time_log ON time_log.account_id = account.id"
-                    " GROUP BY account.id"
-                    " HAVING COUNT(time_log.id) = 0;")
-        res = db.engine.execute(stmt)
-
-        response = []
-        for row in res:
-            response.append({"id":row[0], "name":row[1]})
-        
-        return response
-    
-    @staticmethod
     def find_users_not_assigned_to_project(project_id):
         stmt = text("SELECT account.id, account.name FROM account"
                     " LEFT JOIN project_members ON project_members.account_id = account.id"
