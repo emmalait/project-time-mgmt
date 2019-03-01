@@ -1,0 +1,7 @@
+# Reflektio
+
+## Puutteet
+Sain kaikki alussa määrittämäni user storyt toteuttua (backlogissa on yksi loppusuoralla mieleen tullut ominaisuus), mutta hampaankoloon jäi muutamia asioita. Olisin ideaalisti halunnut myös projektien ja asiakkaiden osalta poisto-mahdollisuuden, mutta en ehtinyt toteuttamaan sitä. Sovellukseen voisi myös luoda lisänäkymiä dataan kuten esimerkiksi asiakas-sivulle listan kyseisen asiakkaan projekteista, kyseisen asiakkaan kokonaistuottavuus jne. Käyttäjien roolit olisi ideaalisti omassa taulussaan, mutta koska rooleja on vain kaksi ja ne ovat toisensa poissulkevia (käyttäjä voi samanaikaisesti olla vain projektipäällikkö tai rivityöntekijä), päätin toteuttaa ne käyttäjän attribuuttina. Suunnitelmissa oli myös toteuttaa aikakirjauksille sivutus, mutta sekin jäi tällä kertaa tekemättä. Näiden lisäksi toiveissa oli vielä hieman hioa sovelluksen ulkonäköä yhdenmukaisemmaksi, mutta se jäi nyt prioriteettilistan hännille.
+
+## Yleisesti
+Projekti sujui mielestäni hyvin ja olen tyytyväinen lopputulokseen. Sain kaikki core-ominaisuudet toteutettua, suurin osa user storyista on toteutettu ja dokumentaatio (tietokantakaavio, CREATE TABLE- lauseet, ohjeet jne.) vastaavat sovelluksen toteutusta. Suurimmat ongelmat, joita projektin aikana kohtasin, liittyivät Herokun käyttämään PostgreSQL:n erilaiseen syntaksiin vrt. Sqlite (eritt. boolean-muuttujia käyttävät kyselyt), mutta niihinkin löytyi lopulta ratkaisu. Python ja Flask olivat minulle uusia tuttavuuksia ja opin sovellusta tehdessä todella paljon uutta.
