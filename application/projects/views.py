@@ -67,7 +67,7 @@ def project(project_id):
         cleared_timelogs = cleared_tls,
         uncleared_timelogs = uncleared_tls)
 
-# GET = view a project's edit form, POST = edit project
+# GET = view the edit form for a project, POST = edit a project
 @app.route("/projects/<project_id>/edit", methods=["GET", "POST"])
 @login_required
 def edit_project(project_id):
@@ -118,7 +118,7 @@ def assignUser(project_id, account_id):
 
     return redirect(request.referrer)
 
-# Unassign user to a project
+# Unassign user from a project
 @app.route("/projects/<project_id>/members/<account_id>/unassign", methods=["POST"])
 @login_required
 def unassignUser(project_id, account_id):
