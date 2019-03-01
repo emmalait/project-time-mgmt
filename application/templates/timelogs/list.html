@@ -2,6 +2,7 @@
 
 <h2>Time logs</h2>
 
+{% if timelogs %}
 <p>
     <div class="col-12">
            <table class="table table-striped">
@@ -45,6 +46,10 @@
             </table>
     </div>
 </p>
+
+{% else %}
+<p>No logged hours yet.</p>
+{% endif%}
 
 <p><a href="{{ url_for('timelogs_form') }}" class="btn btn-dark">Log time</a></p>
 
