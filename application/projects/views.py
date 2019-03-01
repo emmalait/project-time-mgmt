@@ -5,7 +5,7 @@ from application import app, db
 
 from application.auth.models import User
 from application.projects.models import Project
-from application.projects.forms import ProjectForm
+from application.projects.forms import ProjectForm, ProjectEditForm
 from application.customers.models import Customer
 from application.timelogs.models import TimeLog
 
@@ -66,6 +66,37 @@ def project(project_id):
         project = p,
         cleared_timelogs = cleared_tls,
         uncleared_timelogs = uncleared_tls)
+
+# GET = view a project's edit form, POST = edit project
+@app.route("/projects/<project_id>/edit", methods=["GET", "POST"])
+@login_required
+def edit_project(project_id):
+    p = Project.query.filter_by(id = project_id).first()
+    c = Customer.query.filter_by(id = p.customer_id).first()
+    
+    if request.method == "GET":
+        editForm = ProjectEditForm(
+            id = p.id,
+            customer = c,
+            name = p.name,
+            budget = p.budget
+        )
+        return render_template("projects/edit.html", form = editForm) 
+
+    form = ProjectEditForm(request.form)
+
+    p = Project.query.filter_by(id = form.id.data).first()
+
+    if not form.validate():
+        return render_template("projects/view.html", form = form)
+
+    p.customer_id = form.customer.data.id
+    p.name = form.name.data
+    p.budget = form.budget.data
+
+    db.session().commit()
+  
+    return redirect(url_for("project", project_id = p.id))
 
 # View page to assign users to a project
 @app.route("/projects/<project_id>/members", methods=["GET"])
