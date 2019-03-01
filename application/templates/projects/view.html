@@ -89,9 +89,11 @@
 
 {% endif %}
 
+{% if current_user.role == "manager" %}
 <div class="pt-2 pb-4">
         <a href="{{ url_for('assignedUsers', project_id = project.id) }}" class="btn btn-dark">Assign users</a>
-    </div>
+</div>
+{% endif %}
 
 {% if uncleared_timelogs %}
 
@@ -190,14 +192,18 @@
                             {% endif %}
                         </td>
                         <td>
+                            {% if current_user.id == timelog.user_id or current_user.role == "manager" %}
                             <form method="GET" action="{{ url_for('timelog', timelog_id=timelog.id) }}">
                                 <input type="submit" value="Edit" class="btn btn-dark btn-sm"/>
                             </form>
+                            {% endif %}
                         </td>
                         <td>
+                            {% if current_user.id == timelog.user_id or current_user.role == "manager" %}
                             <form method="POST" action="{{ url_for('timelogs_delete', timelog_id=timelog.id) }}">
                                 <input type="submit" value="Delete" class="btn btn-dark btn-sm"/>
                             </form>
+                            {% endif %}
                         </td>
                         {% if current_user.role == "manager" %}
                         <td>
