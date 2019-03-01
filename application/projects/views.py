@@ -57,7 +57,6 @@ def project(project_id):
     p.budget = float(str(p.budget))
     p.costs = Project.get_costs(project_id)
     p.revenues = Project.get_revenues(project_id)
-    p.users = p.members
 
     cleared_tls = TimeLog.find_cleared_timelogs_by_project(project_id)
     uncleared_tls = TimeLog.find_uncleared_timelogs_by_project(project_id)
@@ -73,10 +72,9 @@ def project(project_id):
 @login_required
 def assignedUsers(project_id):
     p = Project.query.filter_by(id = project_id).first()
-    us = User.query.all()
-    
-    return render_template("projects/assignedUsers.html", project = p, users = us)
+    availableUsers = User.find_users_not_assigned_to_project(project_id)
 
+    return render_template("projects/assignedUsers.html", project = p, availableUsers = availableUsers)
 
 # Assign user to a project
 @app.route("/projects/<project_id>/members/<account_id>/assign", methods=["POST"])

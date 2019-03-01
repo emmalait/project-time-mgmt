@@ -56,6 +56,43 @@
 </div>
 {% endif %}
 
+<h4 class="pt-3">Project members</h4>
+
+{% if project.members %}
+<p>
+    <div class="col-12 pt-3">
+           <table class="table table-striped">
+                <tr>
+                    <th>User</th>
+                    {% if current_user.role == "manager" %}
+                    <th></th>
+                    {% endif %}
+                </tr>
+                {% for user in project.members %}
+                <tr>
+                    <td>{{ user.name }}</td>
+                    {% if current_user.role == "manager" %}
+                    <td>
+                        <form method="POST" action="{{ url_for('unassignUser', project_id = project.id, account_id = user.id) }}">
+                            <input type="submit" value="Unassign" class="btn btn-dark btn-sm"/>
+                        </form>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+    </div>
+</p>
+{% else %}
+
+<p>No project members have been assigned to this project.</p>
+
+{% endif %}
+
+<div class="pt-2 pb-4">
+        <a href="{{ url_for('assignedUsers', project_id = project.id) }}" class="btn btn-dark">Assign users</a>
+    </div>
+
 {% if uncleared_timelogs %}
 
 <h4 class="pt-3">Uninvoiced project entries</h4>
