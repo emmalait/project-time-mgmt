@@ -22,3 +22,6 @@ The application makes project time management possible. In the application the e
 * [User stories](https://github.com/emmalait/project-time-mgmt/blob/master/documentation/userstories.md)
 * [Installation guide](https://github.com/emmalait/project-time-mgmt/blob/master/documentation/guides.md#installation-guide)
 * [User guide](https://github.com/emmalait/project-time-mgmt/blob/master/documentation/guides.md#user-guide)
+
+### Other
+* [Reflection](https://github.com/emmalait/project-time-mgmt/blob/master/documentation/reflection.md)
