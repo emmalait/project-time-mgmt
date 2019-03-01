@@ -62,7 +62,7 @@ class Project(Base):
             stmt = text("SELECT SUM(time_log.hours * work_type.price) FROM project"
                             " LEFT JOIN time_log ON project.id = time_log.project_id"
                             " LEFT JOIN work_type ON time_log.work_type_id = work_type.id"
-                            " WHERE project.id = :project_id) AND time_log.cleared = 't'").params(project_id = project_id)
+                            " WHERE project.id = :project_id AND time_log.cleared = 't'").params(project_id = project_id)
         else:
             stmt = text("SELECT SUM(time_log.hours * work_type.price) FROM project"
                         " LEFT JOIN time_log ON project.id = time_log.project_id"
