@@ -36,10 +36,24 @@ class User(Base):
     
     @staticmethod
     def find_users_with_no_logs():
-        stmt = text("SELECT Account.id, Account.name FROM Account"
-                    " LEFT JOIN Time_Log ON Time_Log.Account_id = Account.id"
-                    " GROUP BY Account.id"
-                    " HAVING COUNT(Time_Log.id) = 0;")
+        stmt = text("SELECT account.id, account.name FROM account"
+                    " LEFT JOIN time_log ON time_log.account_id = account.id"
+                    " GROUP BY account.id"
+                    " HAVING COUNT(time_log.id) = 0;")
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"id":row[0], "name":row[1]})
+        
+        return response
+    
+    @staticmethod
+    def find_users_not_assigned_to_project(project_id):
+        stmt = text("SELECT account.id, account.name FROM account"
+                    " LEFT JOIN project_members ON project_members.account_id = account.id"
+                    " LEFT JOIN project ON project.id = project_members.project_id"
+                    " WHERE NOT project.id = :project_id OR project_members.account_id IS NULL").params(project_id = project_id)
         res = db.engine.execute(stmt)
 
         response = []
