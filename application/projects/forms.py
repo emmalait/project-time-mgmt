@@ -11,8 +11,8 @@ def customer_choices():
 
 class ProjectForm(FlaskForm):
     customer = QuerySelectField("Customer", query_factory = customer_choices, get_label = "name")
-    name = StringField("Name", [validators.Length(min=2, max=144)])
-    budget = DecimalField("Budget", places=2)
+    name = StringField("Name", [validators.Length(min=2, max=144, message="Name must be between 2-144 characters.")])
+    budget = DecimalField("Budget", [validators.NumberRange(min=0, max=9000000000, message="Budget must be between 0.00-9 000 000 000.00 euros.")], places=2)
 
     class Meta:
         csrf = False

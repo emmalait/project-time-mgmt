@@ -17,7 +17,7 @@ class TimeLogForm(FlaskForm):
     hours = IntegerField("Hours")
     project = QuerySelectField("Project", query_factory = project_choices, get_label = "name")
     work_type = QuerySelectField("Work type", query_factory = work_type_choices, get_label = "name")
-    description = StringField("Log description", [validators.Length(min=2, max=144)])
+    description = StringField("Log description", [validators.Length(min=2, max=144, message="Log description must be between 2 and 144 characters.")])
 
     class Meta:
         csrf = False
@@ -27,7 +27,7 @@ class TimeLogEditForm(FlaskForm):
     hours = IntegerField("Hours")
     project = QuerySelectField("Project", query_factory = project_choices, get_label = "name")
     work_type = QuerySelectField("Work type", query_factory = work_type_choices, get_label = "name")
-    description = StringField("Log description", [validators.Length(min=2, max=144)])
+    description = StringField("Log description", [validators.Length(min=2, max=144, message="Log description must be between 2 and 144 characters.")])
 
     class Meta:
         csrf = False
