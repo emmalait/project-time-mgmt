@@ -7,7 +7,7 @@ The application makes project time management possible. In the application the e
 * Recording time
 * Role-specific summary reports
 
-### [The app @ Heroku](https://project-time-mgmt.herokuapp.com/)**
+### [The app @ Heroku](https://project-time-mgmt.herokuapp.com/)
 
 #### Test credentials
 * Manager role
