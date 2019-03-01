@@ -52,9 +52,18 @@ def timelogs_form():
 @login_required
 def timelog(timelog_id):
     t = TimeLog.query.filter_by(id = timelog_id).first()
-
+    p = Project.query.filter_by(id = t.project_id).first()
+    wt = WorkType.query.filter_by(id = t.work_type_id).first()
+    
     if request.method == "GET":
-        return render_template("timelogs/view.html", form = TimeLogEditForm(obj=t) )
+        editForm = TimeLogEditForm(
+            id = t.id,
+            hours = t.hours,
+            project = p,
+            work_type = wt,
+            description = t.description
+        )
+        return render_template("timelogs/view.html", form = editForm)
 
     form = TimeLogEditForm(request.form)
 
