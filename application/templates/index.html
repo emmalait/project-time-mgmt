@@ -2,11 +2,93 @@
 
 {% block body %}
   
-
     {% if current_user.is_authenticated %}
         <h4>Hello {{ current_user.name }}!</h4>
 
-        <h5>Your most recent time logs</h5>
+        <h5>Your projects</h5>
+
+        <p>
+    <div class="col-md-10">
+       <table class="table table-striped">
+            <tr>
+                <th>Customer</th>
+                <th>Name</th>
+                <th>Budget</th>
+                {% if current_user.role == "manager" %}
+                <th>Costs</th>
+                <th>Revenues</th>
+                <th>Profit</th>
+                {% endif %}
+                <th></th>
+            </tr>
+            {% for project in projects %}
+            <tr>
+                <td>{{ project.customer_name }}</td>
+                <td>{{ project.name }}</td>
+                <td>{{ project.budget }}</td>
+                {% if current_user.role == "manager" %}
+                <td>{{ project.costs }}</td>
+                <td>{{ project.revenues }}</td>
+                <td>{{ project.revenues-project.costs }}</td>
+                {% endif %}
+                <td><a href="{{ url_for('project', project_id=project.id) }}" class="btn btn-dark btn-sm">View details</a></td>    
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</p>
+
+<h5>Your recent time logs</h5>
+
+<p>
+        <div class="col-12">
+               <table class="table table-striped">
+                    <tr>
+                        <th>Customer</th>
+                        <th>Project</th>
+                        <th>Work type</th>
+                        <th>Description</th>
+                        <th>Hours</th>
+                        <th>Invoicing status</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    {% for timelog in timelogs %}
+                    <tr>
+                        <td>{{ timelog.customer_name }}</td>
+                        <td>{{ timelog.project_name }}</td>
+                        <td>{{ timelog.work_type_name }}</td>
+                        <td>{{ timelog.description }}</td>
+                        <td>{{ timelog.hours}}</td>  
+                        <td>
+                            {% if timelog.cleared == True %}
+                            <span class="badge badge-success">Invoiced</span>
+                            {% endif %}
+                            {% if timelog.cleared == False %}
+                            <span class="badge badge-secondary">Not invoiced</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if timelog.cleared == False %}
+                            <form method="GET" action="{{ url_for('timelog', timelog_id=timelog.id) }}">
+                                <input type="submit" value="Edit" class="btn btn-dark btn-sm"/>
+                            </form>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if timelog.cleared == False %}
+                            <form method="POST" action="{{ url_for('timelogs_delete', timelog_id=timelog.id) }}">
+                                <input type="submit" value="Delete" class="btn btn-dark btn-sm"/>
+                            </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+        </div>
+    </p>
+
+    <p><a href="{{ url_for('timelogs_form') }}" class="btn btn-dark">Log time</a></p>
 
     {% else %}
         <p>

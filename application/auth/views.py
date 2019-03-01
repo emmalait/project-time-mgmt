@@ -18,7 +18,7 @@ def auth_login():
         return render_template("auth/loginform.html", form = form, error = "No such username or password")
 
     login_user(user)
-    return redirect(url_for("timelogs_index"))
+    return redirect(url_for("index"))
 
 # Handle logout
 @app.route("/auth/logout")
