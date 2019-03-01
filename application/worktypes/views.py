@@ -4,6 +4,7 @@ from flask_login import login_required
 from application import app, db
 from application.worktypes.models import WorkType
 from application.worktypes.forms import WorkTypeForm, WorkTypeEditForm
+from application.timelogs.models import TimeLog
 
 # Show all work types
 @app.route("/worktypes", methods=["GET"])
@@ -32,6 +33,13 @@ def worktypes_create():
 @login_required
 def worktypes_delete(worktype_id):
     wt = WorkType.query.filter_by(id = worktype_id).first()
+
+    timelogsWithWorkType = TimeLog.query.filter_by(work_type_id = worktype_id).all()
+
+    if timelogsWithWorkType:
+        error = "Work type cannot be deleted because it is used in time logs."
+
+        return render_template("worktypes/list.html", worktypes = WorkType.query.all(), error = error)
     
     db.session().delete(wt)
     db.session().commit()

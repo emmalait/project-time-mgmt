@@ -1,6 +1,12 @@
 {% extends "layout.html" %} {% block body %}
 <h2>Work types</h2>
 
+{% if error %}
+    <div class="alert alert-danger">
+        <strong>Error:</strong> {{ error }}
+    </div>
+{% endif %}
+
 <p>
     <div class="col-md-8">
        <table class="table table-striped">

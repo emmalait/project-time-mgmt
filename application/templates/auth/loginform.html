@@ -4,7 +4,11 @@
 
 <h3>Log in</h3>
 
-{{ error }}
+{% if error %}
+    <div class="alert alert-danger">
+        <strong>Error:</strong> {{ error }}
+    </div>
+{% endif %}
 
 <p>
     <div class="col-6">
