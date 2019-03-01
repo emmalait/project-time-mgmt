@@ -5,7 +5,7 @@ from application import app, db, login_required
 from application.auth.models import User
 from application.auth.forms import LoginForm, RegisterForm, UserEditForm
 
-# Handle login
+# GET = show login form, POST = handle login
 @app.route("/auth/login", methods = ["GET", "POST"])
 def auth_login():
     if request.method == "GET":
@@ -26,7 +26,7 @@ def auth_logout():
     logout_user()
     return redirect(url_for("auth_login"))
 
-# Create a new user
+# GET = show registration form, POST = create a new user
 @app.route("/auth/register", methods=["GET", "POST"])
 def auth_register():
     if request.method == "GET":

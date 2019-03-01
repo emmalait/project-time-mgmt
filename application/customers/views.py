@@ -33,7 +33,7 @@ def customers_create():
 def customers_form():
     return render_template("customers/new.html", form = CustomerForm())
 
-# GET = show the edit form for a customer, POST = edit a work type
+# GET = show the edit form for a customer, POST = edit a customer
 @app.route("/customers/<customer_id>", methods=["GET", "POST"])
 @login_required
 def customer(customer_id):
