@@ -152,10 +152,11 @@ CREATE TABLE project_members (
 │       └── views.py
 ├── documentation
 │   ├── architecture.md
-│   ├── features.md
 │   ├── guides.md
 │   └── images
-│       └── db-diagram.png
+│   │   └── db-diagram.png
+│   ├── userstories.md
+│   └── reflection.md
 ├── requirements.txt
 ├── run.py
 ```
