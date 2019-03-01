@@ -85,3 +85,23 @@ class Project(Base):
             revenues = float(str(0))
 
         return revenues
+    
+    @staticmethod
+    def find_projects_user_is_assigned_to(account_id):
+
+        stmt = text("SELECT project.id, project.name, project.budget, project.customer_id FROM project"
+                            " LEFT JOIN project_members ON project.id = project_members.project_id"
+                            " LEFT JOIN account ON project_members.account_id = account.id"
+                            " WHERE account.id = :account_id").params(account_id = account_id)
+
+        res = db.engine.execute(stmt)
+        
+        response = []
+
+        for row in res:
+            p = Project(row[1], row[2])
+            p.id = row[0]
+            p.customer_id = row[3]
+            response.append(p)
+
+        return response

@@ -4,6 +4,8 @@ from wtforms.ext.sqlalchemy.fields import QuerySelectField
 
 from application import db
 
+from flask_login import current_user
+
 from application.worktypes.models import WorkType
 from application.projects.models import Project
 
@@ -11,7 +13,7 @@ def work_type_choices():
     return WorkType.query.all()
 
 def project_choices():
-    return Project.query.all()
+    return Project.find_projects_user_is_assigned_to(current_user.id)
 
 class TimeLogForm(FlaskForm):
     hours = IntegerField("Hours")
